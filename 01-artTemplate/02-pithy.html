@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简洁语法</title>
+    <style>
+        table {
+            width: 500px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 15px 5px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>图片地址</th>
+        <th>现价</th>
+        <th>原价</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<!--
+1.简洁的语法
+2. 必须写在  {{ }} 里面
+3. {{ each model }} {{/each}} 默认索引  $index  默认值  $value
+4. {{ each model as item i}} {{/each}} item 值  i 索引
+5. {{if}}{{else}}{{/if}} 分支
+6. 不能定义变量
+-->
+<script type="text/template" id="template">
+    {{ each model as item i}}
+        <tr>
+            <td>{{i+1}}</td>
+            <td><img width="100" src="{{item.url}}" alt=""></td>
+            <td>{{item.nowPrice}}</td>
+            {{if item.oldPrice > 1000}}
+            <td style="color: red">{{item.oldPrice}}</td>
+            {{else}}
+            <td>{{item.oldPrice}}</td>
+            {{/if}}
+        </tr>
+    {{/each}}
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/template.js"></script>
+<script>
+    /*
+     *1.准备数据
+     2.准备模版
+     3.数据和模版绑定返回html格式的字符串
+     4.渲染页面
+     * */
+    var data = [
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"190.00"
+        },
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"1190.00"
+        },
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"190.00"
+        },
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"190.00"
+        }
+    ];
+    var html = template('template',{model:data});
+    $('tbody').html(html);
+
+</script>
+</body>
+</html>

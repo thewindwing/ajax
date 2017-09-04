@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8' ?>
+        <root>
+   <item>
+       <url>http://127.0.0.1/ajax/IMG_20170716_092043.jpg</url>
+       <oldPrice>100.00</oldPrice>
+       <newPrice>50.00</newPrice>
+   </item>
+    <item>
+        <url>http://127.0.0.1/ajax/IMG_20170716_092043.jpg</url>
+        <oldPrice>100.00</oldPrice>
+        <newPrice>50.00</newPrice>
+    </item>
+    <item>
+        <url>http://127.0.0.1/ajax/IMG_20170716_092043.jpg</url>
+        <oldPrice>100.00</oldPrice>
+        <newPrice>50.00</newPrice>
+    </item>
+</root>

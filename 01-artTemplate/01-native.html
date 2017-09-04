@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>原生语法</title>
+    <style>
+        table {
+            width: 500px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 15px 5px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>图片地址</th>
+        <th>现价</th>
+        <th>原价</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<!--
+1.什么叫模版：参照html代码和数据绑定
+2.<script type="text/html"> 不让内容当作js解析执行  页面不可见源码存在
+3.当模版绑定之后可以在  模版内书写模版语法
+4.特殊的语法  只能书写在 <%  %>  里面
+5.使用数据的时候   是你传入的对象当中的属性  这个属性就相当于是一个模版内可以使用的变量
+6.获取数据并显示 <%= %>
+7.特殊的语法 和js一样  模版内部是可以  定义变量  使用分支循环语句
+8.
+-->
+<script type="text/html" id="template">
+    <% $.each(list,function(i,item){}) %>
+
+    <% for(var i = 0 ; i < list.length ; i++ ){ %>
+    <% var item = list[i]; %>
+    <tr>
+        <td><%=i+1%></td>
+        <td><img width="100" src="<%=item.url%>" alt=""></td>
+        <td><%=item.nowPrice%></td>
+        <% if(item.oldPrice > 1000){ %>
+        <td style="color: red"><%=item.oldPrice%></td>
+        <% }else{ %>
+        <td ><%=item.oldPrice%></td>
+        <% } %>
+    </tr>
+    <% } %>
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/template-native.js"></script>
+<script>
+    /*
+    *1.准备数据
+     2.准备模版
+     3.数据和模版绑定返回html格式的字符串
+     4.渲染页面
+    * */
+    var data = [
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"190.00"
+        },
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"1190.00"
+        },
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"190.00"
+        },
+        {
+            "url":"http://www.study.com/heima11/day02/jdM/images/detail01.jpg",
+            "nowPrice":"10.00",
+            "oldPrice":"190.00"
+        }
+    ];
+
+    /*参数1  模版的ID  */
+    /*参数2  数据（类型一定是对象）*/
+    /*返回就是html代码*/
+    var html = template('template',{list:data});
+
+    document.querySelector('tbody').innerHTML = html;
+
+
+</script>
+</body>
+</html>

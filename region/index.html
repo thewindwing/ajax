@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>省级联动</title>
+    <style>
+        .region {
+            width: 400px;
+            margin: 100px auto;
+        }
+
+        .region select {
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="region">
+    <select id="province">
+        <option value="">请选择</option>
+    </select>
+    <select id="city">
+        <option value="">请选择</option>
+    </select>
+    <select id="area">
+        <option value="">请选择</option>
+    </select>
+</div>
+<script type="text/html" id="model">
+    <option value="">请选择</option>
+    <% for(var i=0;i< result.length ; i++){%>
+    <% var item=result[i] %>
+    <option value="<%=item.id%>"><%=item.name%></option>
+    <%}%>
+
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/template-native.js"></script>
+<script>
+    $(function () {
+//        省份
+        $.ajax({
+            url: 'http://api.jisuapi.com/area/province',
+            data: {appkey: '0e76c1404f2631de'},
+            dataType: 'jsonp',
+            success: function (data) {
+                $('#province').html(template('model', data));
+            }
+        });
+        //        市区
+        area($('#province'), 'http://api.jisuapi.com/area/city', $("#city"));
+
+//        县城
+        area($('#city'), 'http://api.jisuapi.com/area/town', $("#area"));
+
+//        选择地点的函数
+        function area(parent, url, child) {
+            parent.on('change', function () {
+                $.ajax({
+                    url: url,
+                    data: {parentid: $(this).val(), appkey: '0e76c1404f2631de'},
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        var html = template('model', data);
+                        child.html(html);
+                    }
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域</title>
+</head>
+<body>
+<iframe id="iframe" src="http://api.study.com/iframe.html" frameborder="0"></iframe>
+<script>
+    /*获取iframe*/
+    var iframe = document.querySelector('iframe');
+    /*iframe 加载完毕*/
+    iframe.onload = function () {
+        iframe.contentWindow.document.getElementById('txt').style.color = 'red';
+    }
+</script>
+</body>
+</html>

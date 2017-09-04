@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="http://api.study.com/jsonp.php">-->
+</head>
+<body>
+<p>jsonp</p>
+<button>jsonp</button>
+<!--请求 api.study.com 接口  跨域-->
+<!--
+1. xhr 不能进行跨域请求
+2. 有一些标签具备了跨域资源请求的能力
+3. link的使用 可以请求跨域的数据  但是用不了
+4. 通过script去请求  通过src的方式的请求都是get请求
+5. 把后台返回的内容引入script进来  结果：不管后台返回的是什么类型 都会解析成js并执行
+6. 如果不符合js语法是会报错的
+7. 遵循js语法  定义一个变量  根据变量获取后台数据
+8. 问题：什么时候去使用这个变量  这个变量谁维护
+9. 不知道什么时候去使用：后台返回一个函数  前端定义一个函数  理解成成功回调函数
+10. 传入的是简单数据怎么传复杂数据  维护需要两端同时维护
+11. 通过拼接json格式的数据  返回之后就是json对象
+优化：
+12.维护问题
+12.1 一端维护  前端维护   callback值一个前后端的约定   规范
+
+13.怎么传数据
+因为是get请求 所以说只能在地址栏拼接数据
+
+14.做到即时调用
+
+-->
+<!--<script>
+    function success(data) {
+        console.log(data);
+        console.log('成功回调函数');
+    }
+</script>
+<script src="http://api.study.com/jsonp.php?callback=success&name=xgg1"></script>-->
+<script>
+    function success(data) {
+        console.log(data);
+    }
+    window.onload = function () {
+        document.querySelector('button').onclick = function () {
+            /*1.动态创建script标签*/
+            var script = document.createElement('script');
+            /*2. get方式  后台的接口地址*/
+            script.src = 'http://api.study.com/jsonp.php?callback=success&name=xgg1';
+            /*3.追加到页面*/
+            document.querySelector('body').appendChild(script);
+        }
+    }
+</script>
+</body>
+</html>

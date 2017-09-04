@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跨域</title>
+</head>
+<body>
+<iframe id="iframe" src="iframe.html" frameborder="0"></iframe>
+<script>
+	var iframe = document.querySelector('#iframe');
+	/*iframe 都有页面文档加载完成事件 */
+	iframe.onload = function () {
+		/*内嵌页面  window */
+		var win = iframe.contentWindow;
+		/* 获取 document */
+		var d = win.document;
+		d.querySelector('#txt').style.color = 'red';
+    }
+</script>
+</body>
+</html>

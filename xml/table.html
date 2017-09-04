@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            width: 500px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 15px 5px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>图片地址</th>
+        <th>现价</th>
+        <th>原价</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="4">正在加载...</td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    window.onload = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', 'table.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var xml = xhr.responseXML;
+                    var items = xml.querySelectorAll('item');
+                    var str = '';
+                    for (var i = 0; i < items.length; i++) {
+                        str += "<tr>";
+                        str += '<td>' + (i + 1) + '</td>';
+                        str += '<td><img width="200" src='+ items[i].querySelector('url').innerHTML+'></td>';
+                        str += '<td>' + items[i].querySelector('oldPrice').innerHTML + '</td>';
+                        str += '<td>' + items[i].querySelector('newPrice').innerHTML + '</td>';
+                        str += "</tr>";
+                    }
+                    document.querySelector('tbody').innerHTML = str;
+                }
+            }
+        };
+    };
+</script>
+</body>
+</html>

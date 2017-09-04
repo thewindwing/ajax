@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #F7F7F7;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        .chatbox {
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            border: 1px solid #CCC;
+            background-color: #FFF;
+            border-radius: 5px;
+        }
+
+        .messages {
+            height: 350px;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #CCC;
+            overflow: scroll;
+        }
+
+        .self {
+            text-align: left;
+        }
+
+        .other {
+            text-align: right;
+        }
+
+        .form {
+            height: 150px;
+        }
+
+        .form textarea {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: none;
+            outline: none;
+            resize: none;
+            font-size: 20px;
+            box-sizing: border-box;
+        }
+
+        .form .input {
+            height: 110px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .form .btn {
+            height: 40px;
+            box-sizing: border-box;
+            border-top: 1px solid #CCC;
+        }
+
+        .form input {
+            display: block;
+            width: 100px;
+            height: 30px;
+            margin-top: 5px;
+            margin-right: 20px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<h3></h3>
+<div class="chatbox">
+    <div class="messages"></div>
+    <div class="form">
+        <div class="input">
+            <textarea name="input" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="btn">
+            <input type="button" class="clear" value="清屏">
+            <input type="button" class="send" value="发送">
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var input = document.querySelector('textarea');
+        var messages = document.querySelector(".messages");
+//        发送按钮
+        document.querySelector(".send").onclick = function () {
+            var msg = input.value;
+            if (!msg) {
+                alert('请输入信息');
+                return false;
+            }
+//            我说的
+            var p = document.createElement("p");
+            p.className = 'self';
+            p.innerHTML = '我说：' + msg;
+            messages.appendChild(p);
+//            清空
+            input.value = '';
+//            系统说的
+            var xhr = new XMLHttpRequest();
+//            请求报文
+            xhr.open('get', 'chat.php');
+            xhr.send('msg=' + msg);
+//            响应报文
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var p = document.createElement('p');
+                    p.className = 'other';
+                    p.innerHTML = '他说：' + xhr.responseText;
+                    messages.appendChild(p);
+                }
+            }
+
+        };
+//        清屏
+        document.querySelector(".clear").onclick = function () {
+            messages.innerHTML = '';
+        };
+    };
+</script>
+</body>
+</html>
