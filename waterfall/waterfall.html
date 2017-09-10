@@ -129,11 +129,12 @@
         $(window).on('scroll',function () {
             /*文档高度*/
             var itemsHeight = $('.items').height();
+            console.log(itemsHeight);
             var offsetTop = $('.items').offset().top;
             /*卷曲高度*/
             var scrollTop = $(window).scrollTop();
             var winHeight = $(window).height();
-
+console.log(offsetTop,scrollTop);
             var height = itemsHeight+offsetTop-scrollTop-winHeight;
 
             if(height < 200 && !$btn.hasClass('loading')){
