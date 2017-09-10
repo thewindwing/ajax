@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        var str1 = '我的名字是张学业，我的女神是殷月老师';
+        var str2 = '我的名字是王磊，我的女神是小姐姐';
+
+        var strTpl= '我的名字是<%=name%>，我的女神是<%=goddess%>';
+
+        var obj = {
+            name:"王磊",
+            goddess:"小姐姐",
+        }
+
+        // 使用 正则 获取 其中的 这两个地方
+        //  最开始 匹配的是 <%=
+        //  \s* 可以有 0-多个 空白符号
+        //  () 查找 满足 小括号中 条件的 文本
+        //  [^%>]+\S   ^%> 除了 %> 以外的 所有字符 至少一个
+        //  \s* 0-多个
+        //  以%> 作为结束
+        //  // 快速 创建 正则 验证对象
+         var reg = /<%=\s*([^%>]+\S)\s*%>/;
+//        //第一次替换
+//        var  result = reg.exec(strTpl);
+//        console.log(result);
+//        var resultstr = result[0];//<%=name%>
+//        var resultWord = result[1];//name
+//        strTpl = strTpl.replace(resultstr,obj[resultWord]);
+//        console.log(strTpl);
+//
+//        //第二次替换
+//
+//        result = reg.exec(strTpl);//匹配<%=goddess%>
+//        console.log(result);
+//        resultstr = result[0]; //<%=goddess%>
+//        resultWord = result[1];//goddess
+//        strTpl = strTpl.replace(resultstr,obj[resultWord]);
+//        console.log(strTpl);
+//
+////        第三次替换
+//        result = reg.exec(strTpl);//匹配<%=goddess%>
+//        console.log(result);
+        function templateFz(strTpl,obj){
+            //  // 快速 创建 正则 验证对象
+            var reg = /<%=\s*([^%>]+\S)\s*%>/;
+            var  result = reg.exec(strTpl);
+            while(result = reg.exec(strTpl)){
+                var resultstr = result[0];//<%=name%>
+                var resultWord = result[1];//name
+                strTpl = strTpl.replace(resultstr,obj[resultWord]);
+            }
+            return strTpl;
+        }
+
+        console.log(templateFz(strTpl, obj));
+
+
+    </script>
+</body>
+</html>
