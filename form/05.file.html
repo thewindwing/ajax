@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form{
+            width: 300px;
+            margin: 100px auto;
+        }
+        form div{
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body>
+<!--
+1.提交的是文件  post
+2.前端提交的数据 还只是字符串类型
+3.enctype="multipart/form-data" 设置成以文件数据提交
+-->
+<form action="05.file.php" method="post" enctype="multipart/form-data" autocomplete="off">
+    <div>用户名：<input name="usernam个e" type="text" placeholder="请输入用户名"></div>
+    <div>密&nbsp;码：<input name="password" type="password" placeholder="请输入密码"></div>
+    <div>头 像：<input name="headIcon" type="file"></div>
+    <div><input type="submit" value="提交"></div>
+</form>
+</body>
+</html>

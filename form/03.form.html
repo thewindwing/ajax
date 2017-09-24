@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form{
+            width: 300px;
+            margin: 100px auto;
+        }
+        form div{
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body>
+<!--
+1. action 提交的地址（理解成后台处理程序）
+2. 默认提交方式是get (会把数据拼接在url当中 ?name=xgg&age=17)
+3. 数据提交一定需要添加name属性  这个数据的名字
+4. post提交方式  method="post"
+5. get提交和post提交的区别：
+5.1 提交数据的地方不一样（get:url拼接，post:请求报文当中） post更安全
+5.2 提交的数据大小不一样（get:4k左右，地址栏长度是有限的，post:没有限制）
+-->
+<form action="03.form.php" method="post" autocomplete="off">
+    <div>用户名：<input name="username" type="text" placeholder="请输入用户名"></div>
+    <div>密&nbsp;码：<input name="password" type="password" placeholder="请输入密码"></div>
+    <div><input type="submit" value="提交"></div>
+</form>
+</body>
+</html>
